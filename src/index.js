@@ -42,7 +42,7 @@ const getMovie = (movies) => {
 	description.textContent = movies.description
 	watched.textContent = movies.watched ? 'Watched!' : 'Unwatched!'
 	watched.addEventListener('click', () => {
-		updateWatch(movies)
+		watchedFlip(movies)
 	})
 	bloodAmount.textContent = movies.blood_amount
 }
@@ -62,36 +62,37 @@ const getMovie = (movies) => {
 // 		})
 // }
 
-// const watchedFlip = (movie) => {
-// 	const updatedMovie = !movie.watched
-// 	fetch(`http://localhost:3000/movies/${movie.id}`, {
-// 		method: 'PATCH',
-// 		headers: {
-// 			'Content-Type': 'application/json'
-// 		},
-// 		body: JSON.stringify({watched: updatedMovie})
-// 	})
-// 		.then((res) => res.json())
-// 		.then((updatedMovie) => {
-// 			watched.textContent = updatedMovie.watched ? 'Watched!' : 'Unwatched!'
-// 		})
-// }
-
-function updateWatch(input){
-    const updatedWatchedStatus = !input.watched
-    input.watched = updatedWatchedStatus;
-    // console.log(updatedWatchedStatus);
-    fetch(`http://localhost:3000/movies/${input.id}`, {
-        method: 'PATCH',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            watched: updatedWatchedStatus
-        })
-    })
-    .then(response => response.json())
-    .then(data => console.log(data))
+const watchedFlip = (movie) => {
+	const updatedMovie = !movie.watched
+	fetch(`http://localhost:3000/movies/${movie.id}`, {
+		method: 'PATCH',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({watched: updatedMovie})
+	})
+		.then((res) => res.json())
+		.then((updatedMovie) => {
+			watched.textContent = updatedMovie.watched ? 'Watched!' : 'Unwatched!'
+		})
 }
+
+//Jackie's solution
+// function updateWatch(input){
+//     const updatedWatchedStatus = !input.watched
+//     input.watched = updatedWatchedStatus;
+//     // console.log(updatedWatchedStatus);
+//     fetch(`http://localhost:3000/movies/${input.id}`, {
+//         method: 'PATCH',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify({
+//             watched: updatedWatchedStatus
+//         })
+//     })
+//     .then(response => response.json())
+//     .then(data => console.log(data))
+// }
 
 fetchMovies()

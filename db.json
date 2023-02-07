@@ -24,7 +24,7 @@
       "release_year": 1982,
       "description": "An idyllic summer turns into a nightmare of unspeakable terror for yet another group of naive counselors. Ignoring Camp Crystal Lake's bloody legacy, one by one they fall victim to the maniacal Jason who stalks them at every turn.",
       "image": "./assets/f13-3.jpeg",
-      "watched": true,
+      "watched": false,
       "blood_amount": 0
     },
     {
