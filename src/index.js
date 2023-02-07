@@ -15,6 +15,7 @@ const yearReleased = document.querySelector('#year-released')
 const description = document.querySelector('#description')
 const watched = document.querySelector('#watched')
 const bloodAmount = document.querySelector('#amount')
+const addBloodForm = document.querySelector('#blood-form')
 
 const fetchMovies = () => {
 	fetch('http://localhost:3000/movies')
@@ -44,6 +45,8 @@ const getMovie = (movies) => {
 	watched.addEventListener('click', () => {
 		watchedFlip(movies)
 	})
+	addBloodForm.addEventListener('submit', (e) => {e.preventDefault();
+	addBlood(e, movies)})
 	bloodAmount.textContent = movies.blood_amount
 }
 
@@ -69,11 +72,26 @@ const watchedFlip = (movie) => {
 		headers: {
 			'Content-Type': 'application/json'
 		},
-		body: JSON.stringify({watched: updatedMovie})
+		body: JSON.stringify({ watched: updatedMovie })
 	})
 		.then((res) => res.json())
 		.then((updatedMovie) => {
 			watched.textContent = updatedMovie.watched ? 'Watched!' : 'Unwatched!'
+		})
+}
+
+const addBlood = (e, movie) => {
+	const updatedBlood = movie.blood_amount+= parseInt(e.target[0].value)
+	fetch(`http://localhost:3000/movies/${movie.id}`, {
+		method: 'PATCH',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({ blood_amount: updatedBlood })
+	})
+		.then((res) => res.json())
+		.then((updatedMovie) => {
+			bloodAmount.textContent = updatedMovie.blood_amount
 		})
 }
 
